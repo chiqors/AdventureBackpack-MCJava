@@ -1,0 +1,3 @@
+[submodule "Baubles"]
+	path = Baubles
+	url = https://github.com/Azanor/Baubles
