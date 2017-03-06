@@ -10,11 +10,11 @@ import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityCow;
@@ -25,10 +25,10 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+//import net.minecraft.util.IIcon;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -41,9 +41,9 @@ import net.minecraftforge.fluids.IFluidHandler;
 public class ItemHose extends ItemAB
 {
 
-    IIcon drinkIcon;
-    IIcon spillIcon;
-    IIcon suckIcon;
+    //IIcon drinkIcon;
+    //IIcon spillIcon;
+    //IIcon suckIcon;
     final byte HOSE_SUCK_MODE = 0;
     final byte HOSE_SPILL_MODE = 1;
     final byte HOSE_DRINK_MODE = 2;
@@ -60,6 +60,8 @@ public class ItemHose extends ItemAB
     }
 
     // ================================================ GETTERS  =====================================================//
+    /**
+     * TODO: rendering
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(ItemStack stack, int pass)
@@ -83,6 +85,7 @@ public class ItemHose extends ItemAB
     {
         return itemIcon;
     }
+    */
 
     public static int getHoseMode(ItemStack hose)
     {
@@ -141,15 +144,15 @@ public class ItemHose extends ItemAB
 
     // ================================================ SETTERS  =====================================================//
     // ================================================= ICONS  ======================================================//
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        drinkIcon = iconRegister.registerIcon(Resources.getIconString("hoseDrink"));
-        spillIcon = iconRegister.registerIcon(Resources.getIconString("hoseSpill"));
-        suckIcon = iconRegister.registerIcon(Resources.getIconString("hoseSuck"));
-        itemIcon = iconRegister.registerIcon(Resources.getIconString("hoseLeft"));
-    }
+    //@Override
+    //@SideOnly(Side.CLIENT)
+    //public void registerIcons(IIconRegister iconRegister)
+    //{
+    //    drinkIcon = iconRegister.registerIcon(Resources.getIconString("hoseDrink"));
+    //    spillIcon = iconRegister.registerIcon(Resources.getIconString("hoseSpill"));
+    //    suckIcon = iconRegister.registerIcon(Resources.getIconString("hoseSuck"));
+    //    itemIcon = iconRegister.registerIcon(Resources.getIconString("hoseLeft"));
+    //}
     // ================================================ ACTIONS  =====================================================//
 
     @Override
@@ -204,10 +207,10 @@ public class ItemHose extends ItemAB
             {
                 case HOSE_SUCK_MODE:
 
-                    accepted = tank.fill(exTank.drain(ForgeDirection.UNKNOWN, Constants.bucket, false), false);
+                    accepted = tank.fill(exTank.drain(EnumFacing.UNKNOWN, Constants.bucket, false), false);
                     if (accepted > 0)
                     {
-                        tank.fill(exTank.drain(ForgeDirection.UNKNOWN, accepted, true), true);
+                        tank.fill(exTank.drain(ForgeDEnumFacingirection.UNKNOWN, accepted, true), true);
                         te.markDirty();
                         inv.dirtyTanks();
                         return true;
@@ -216,10 +219,10 @@ public class ItemHose extends ItemAB
 
                 case HOSE_SPILL_MODE:
 
-                    accepted = exTank.fill(ForgeDirection.UNKNOWN, tank.drain(Constants.bucket, false), false);
+                    accepted = exTank.fill(EnumFacing.UNKNOWN, tank.drain(Constants.bucket, false), false);
                     if (accepted > 0)
                     {
-                        exTank.fill(ForgeDirection.UNKNOWN, tank.drain(accepted, true), true);
+                        exTank.fill(EnumFacing.UNKNOWN, tank.drain(accepted, true), true);
                         te.markDirty();
                         inv.dirtyTanks();
                         return true;
@@ -250,7 +253,7 @@ public class ItemHose extends ItemAB
         if (!Wearing.isWearingBackpack(player)) return stack;
         InventoryBackpack inv = new InventoryBackpack(Wearing.getWearingBackpack(player));
         inv.openInventory();
-        MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, true);
+        RayTraceResult mop = getMovingObjectPositionFromPlayer(world, player, true);
         FluidTank tank = getHoseTank(stack) == 0 ? inv.getLeftTank() : inv.getRightTank();
         if (tank != null)
         {
@@ -258,7 +261,7 @@ public class ItemHose extends ItemAB
             {
                 case HOSE_SUCK_MODE: // If it's in Suck Mode
 
-                    if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                    if (mop != null && mop.typeOfHit == RayTraceResult.MovingObjectType.BLOCK)
                     {
                         /* if (!world.canMineBlock(player, mop.blockX, mop.blockY, mop.blockZ))
                          {
@@ -289,7 +292,7 @@ public class ItemHose extends ItemAB
                     break;
 
                 case HOSE_SPILL_MODE: // If it's in Spill Mode
-                    if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                    if (mop != null && mop.typeOfHit == RayTraceResult.MovingObjectType.BLOCK)
                     {
                         int x = mop.blockX;
                         int y = mop.blockY;

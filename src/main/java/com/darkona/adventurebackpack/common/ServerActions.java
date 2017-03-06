@@ -24,8 +24,8 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -260,7 +260,7 @@ public class ServerActions
                     }
                 } else if (world.isRemote)
                 {
-                    player.addChatComponentMessage(new ChatComponentText("Can't deploy the sleeping bag! Check the surrounding area."));
+                    player.addChatComponentMessage(new TextComponentString("Can't deploy the sleeping bag! Check the surrounding area."));
                 }
             } else
             {
@@ -404,7 +404,7 @@ public class ServerActions
             copter.stackTagCompound.setByte("status", newMode);
             if (player.worldObj.isRemote)
             {
-                player.addChatComponentMessage(new ChatComponentTranslation(message));
+                player.addChatComponentMessage(new TextComponentTranslation(message));
             }
 
         }
@@ -421,7 +421,7 @@ public class ServerActions
                 inv.markDirty();
                 if (player.worldObj.isRemote)
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.cycling.on"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.cycling.on"));
                 }
             } else
             {
@@ -429,7 +429,7 @@ public class ServerActions
                 inv.markDirty();
                 if (player.worldObj.isRemote)
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.cycling.off"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.cycling.off"));
                 }
             }
         }
@@ -445,7 +445,7 @@ public class ServerActions
             if (player.worldObj.isRemote)
             {
                 player.playSound("mob.bat.idle", 0.2F, 1.0F);
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.on"));
+                player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.nightvision.on"));
             }
         } else
         {
@@ -454,7 +454,7 @@ public class ServerActions
             if (player.worldObj.isRemote)
             {
                 player.playSound("mob.bat.death", 0.2F, 2.0F);
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.off"));
+                player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.nightvision.off"));
             }
         }
     }
@@ -468,7 +468,7 @@ public class ServerActions
             inv.markDirty();
             if (player.worldObj.isRemote)
             {
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.jetpack.off"));
+                player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.jetpack.off"));
             }
         } else
         {
@@ -476,7 +476,7 @@ public class ServerActions
             inv.markDirty();
             if (player.worldObj.isRemote)
             {
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.jetpack.on"));
+                player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.jetpack.on"));
             }
         }
     }

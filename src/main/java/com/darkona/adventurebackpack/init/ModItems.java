@@ -14,7 +14,7 @@ import com.darkona.adventurebackpack.item.ItemJuiceBottle;
 import com.darkona.adventurebackpack.item.ItemMachete;
 import com.darkona.adventurebackpack.item.ItemPistonBoots;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created on 10/10/2014

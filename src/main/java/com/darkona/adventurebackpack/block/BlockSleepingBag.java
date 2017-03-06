@@ -9,25 +9,26 @@ import com.darkona.adventurebackpack.util.LogHelper;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.Utils;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.math.ChunkPos;
+//import net.minecraft.util.Direction;
+//import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+//TODO: look in to world generation
+//import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 
 /**
@@ -39,13 +40,6 @@ public class BlockSleepingBag extends BlockDirectional
 {
 
     public static final int[][] footBlockToHeadBlockMap = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
-
-    @SideOnly(Side.CLIENT)
-    private IIcon[] endIcons;
-    @SideOnly(Side.CLIENT)
-    private IIcon[] sideIcons;
-    @SideOnly(Side.CLIENT)
-    private IIcon[] topIcons;
 
     public BlockSleepingBag()
     {
@@ -86,7 +80,7 @@ public class BlockSleepingBag extends BlockDirectional
         return (meta & 8) != 0;
     }
 
-    public static ChunkCoordinates verifyRespawnCoordinatesOnBlock(World world, ChunkCoordinates chunkCoordinates, boolean forced)
+    public static ChunkPos verifyRespawnCoordinatesOnBlock(World world, ChunkPos chunkCoordinates, boolean forced)
     {
         IChunkProvider ichunkprovider = world.getChunkProvider();
         ichunkprovider.loadChunk(chunkCoordinates.posX - 3 >> 4, chunkCoordinates.posZ - 3 >> 4);
@@ -96,7 +90,7 @@ public class BlockSleepingBag extends BlockDirectional
 
         if (world.getBlock(chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ).isBed(world, chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ, null))
         {
-            ChunkCoordinates newChunkCoords = world.getBlock(chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ).getBedSpawnPosition(world, chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ, null);
+            ChunkPos newChunkCoords = world.getBlock(chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ).getBedSpawnPosition(world, chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ, null);
             return newChunkCoords;
         }
 
@@ -145,7 +139,7 @@ public class BlockSleepingBag extends BlockDirectional
 
                         if (entityplayer2.isPlayerSleeping())
                         {
-                            ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
+                            ChunkPos chunkcoordinates = entityplayer2.getLocation();
 
                             if (chunkcoordinates.posX == x && chunkcoordinates.posY == y && chunkcoordinates.posZ == z)
                             {
@@ -156,7 +150,7 @@ public class BlockSleepingBag extends BlockDirectional
 
                     if (entityplayer1 != null)
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
+                        player.addChatComponentMessage(new TextComponentTranslation("tile.bed.occupied", new Object[0]));
                         return true;
                     }
 
@@ -170,9 +164,9 @@ public class BlockSleepingBag extends BlockDirectional
                     setBedOccupied(world, x, y, z, true);
                     //This is so the wake up event can detect it. It fires before the player wakes up.
                     //and the bed location isn't set until then, normally.
-                    player.setSpawnChunk(new ChunkCoordinates(x,y,z),true,player.dimension);
+                    player.setSpawnChunk(new ChunkPos(x,y,z),true,player.dimension);
                     LogHelper.info("Looking for a campfire nearby...");
-                    ChunkCoordinates campfire = Utils.findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
+                    ChunkPos campfire = Utils.findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
                     if (campfire != null)
                     {
                         LogHelper.info("Campfire Found, saving coordinates. " + LogHelper.print3DCoords(campfire));
@@ -275,7 +269,7 @@ public class BlockSleepingBag extends BlockDirectional
         return null;
     }
 
-    public static ChunkCoordinates func_149977_a(World world, int x, int y, int z, int whatever)
+    public static ChunkPos func_149977_a(World world, int x, int y, int z, int whatever)
     {
         int meta = world.getBlockMetadata(x, y, z);
         int dir = BlockDirectional.getDirection(meta);
@@ -295,7 +289,7 @@ public class BlockSleepingBag extends BlockDirectional
                     {
                         if (whatever <= 0)
                         {
-                            return new ChunkCoordinates(l2, y, i3);
+                            return new ChunkPos(l2, y, i3);
                         }
 
                         --whatever;
@@ -367,6 +361,9 @@ public class BlockSleepingBag extends BlockDirectional
         return true;
     }
 
+    /**
+     * TODO: rendering code
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)
@@ -417,7 +414,7 @@ public class BlockSleepingBag extends BlockDirectional
 
     /**
      * Indicate if a material is a normal solid opaque cube
-     */
+     *
     @Override
     public boolean isBlockNormalCube()
     {
@@ -426,7 +423,7 @@ public class BlockSleepingBag extends BlockDirectional
 
     /**
      * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
-     */
+     *
     @Override
     public boolean renderAsNormalBlock()
     {
@@ -436,12 +433,15 @@ public class BlockSleepingBag extends BlockDirectional
     /**
      * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
      * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
-     */
+     *
     @Override
     public boolean isOpaqueCube()
     {
         return false;
     }
+
+     */
+
 
     /**
      * Returns if this block is collidable (only used by Fire). Args: x, y, z

@@ -4,20 +4,20 @@ import java.util.Calendar;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -177,7 +177,7 @@ public class Utils
         return valid;
     }
 
-    public static ChunkCoordinates findBlock2D(World world, int x, int y, int z, Block block, int range)
+    public static ChunkPos findBlock2D(World world, int x, int y, int z, Block block, int range)
     {
         for (int i = x - range; i <= x + range; i++)
         {
@@ -185,14 +185,14 @@ public class Utils
             {
                 if (world.getBlock(i, y, j) == block)
                 {
-                    return new ChunkCoordinates(i, y, j);
+                    return new ChunkPos(i, y, j);
                 }
             }
         }
         return null;
     }
 
-    public static ChunkCoordinates findBlock3D(World world, int x, int y, int z, Block block, int hRange, int vRange)
+    public static ChunkPos findBlock3D(World world, int x, int y, int z, Block block, int hRange, int vRange)
     {
         for (int i = (y - vRange); i <= (y + vRange); i++)
         {
@@ -202,7 +202,7 @@ public class Utils
                 {
                     if (world.getBlock(j, i, k) == block)
                     {
-                        return new ChunkCoordinates(j, i, k);
+                        return new ChunkPos(j, i, k);
                     }
                 }
             }
@@ -222,7 +222,7 @@ public class Utils
     }
 
     //This is some black magic that returns a block or entity as far as the argument reach goes.
-    public static MovingObjectPosition getMovingObjectPositionFromPlayersHat(World world, EntityPlayer player, boolean flag, double reach)
+    public static RayTraceResult getMovingObjectPositionFromPlayersHat(World world, EntityPlayer player, boolean flag, double reach)
     {
         float f = 1.0F;
         float playerPitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
@@ -230,7 +230,7 @@ public class Utils
         double playerPosX = player.prevPosX + (player.posX - player.prevPosX) * f;
         double playerPosY = (player.prevPosY + (player.posY - player.prevPosY) * f + 1.6200000000000001D) - player.yOffset;
         double playerPosZ = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-        Vec3 vecPlayer = Vec3.createVectorHelper(playerPosX, playerPosY, playerPosZ);
+        Vec3d vecPlayer = Vec3d.createVectorHelper(playerPosX, playerPosY, playerPosZ);
         float cosYaw = (float) Math.cos(-playerYaw * 0.01745329F - 3.141593F);
         float sinYaw = (float) Math.sin(-playerYaw * 0.01745329F - 3.141593F);
         float cosPitch = (float) -Math.cos(-playerPitch * 0.01745329F);
@@ -238,7 +238,7 @@ public class Utils
         float pointX = sinYaw * cosPitch;
         float pointY = sinPitch;
         float pointZ = cosYaw * cosPitch;
-        Vec3 vecPoint = vecPlayer.addVector(pointX * reach, pointY * reach, pointZ * reach);
+        Vec3d vecPoint = vecPlayer.addVector(pointX * reach, pointY * reach, pointZ * reach);
         return world.func_147447_a/*rayTraceBlocks_do_do*/(vecPlayer, vecPoint, flag, !flag, flag);
     }
 
@@ -263,11 +263,11 @@ public class Utils
         return side == Side.SERVER;
     }
 
-    private static ChunkCoordinates checkCoordsForBackpack(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, boolean except)
+    private static ChunkPos checkCoordsForBackpack(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, boolean except)
     {
         if (world.isAirBlock(X, Y, Z) || isReplaceable(world, X, Y, Z))
         {
-            return new ChunkCoordinates(X, Y, Z);
+            return new ChunkPos(X, Y, Z);
         }
         return null;
     }
@@ -278,18 +278,18 @@ public class Utils
         return block.isReplaceable(world, x, y, z);
     }
 
-    private static ChunkCoordinates checkCoordsForPlayer(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, boolean except)
+    private static ChunkPos checkCoordsForPlayer(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, boolean except)
     {
         LogHelper.info("Checking coordinates in X=" + X + ", Y=" + Y + ", Z=" + Z);
-        if (except && world.isSideSolid(X, Y - 1, Z, ForgeDirection.UP, true) && world.isAirBlock(X, Y, Z) && world.isAirBlock(X, Y + 1, Z) && !areCoordinatesTheSame2D(origX, origZ, X, Z))
+        if (except && world.isSideSolid(X, Y - 1, Z, EnumFacing.UP, true) && world.isAirBlock(X, Y, Z) && world.isAirBlock(X, Y + 1, Z) && !areCoordinatesTheSame2D(origX, origZ, X, Z))
         {
             LogHelper.info("Found spot with the exception of the origin point");
-            return new ChunkCoordinates(X, Y, Z);
+            return new ChunkPos(X, Y, Z);
         }
-        if (!except && world.isSideSolid(X, Y - 1, Z, ForgeDirection.UP, true) && world.isAirBlock(X, Y, Z) && world.isAirBlock(X, Y + 1, Z))
+        if (!except && world.isSideSolid(X, Y - 1, Z, EnumFacing.UP, true) && world.isAirBlock(X, Y, Z) && world.isAirBlock(X, Y + 1, Z))
         {
             LogHelper.info("Found spot without exceptions");
-            return new ChunkCoordinates(X, Y, Z);
+            return new ChunkPos(X, Y, Z);
         }
         return null;
     }
@@ -311,7 +311,7 @@ public class Utils
      * @param type   True = for player, False = for backpack
      * @return The coordinates of the block in the chunk of the world of the game of the server of the owner of the computer, where you can place something above it.
      */
-    public static ChunkCoordinates getNearestEmptyChunkCoordinatesSpiral(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, int radius, boolean except, int steps, byte pass, boolean type)
+    public static ChunkPos getNearestEmptyChunkCoordinatesSpiral(IBlockAccess world, int origX, int origZ, int X, int Y, int Z, int radius, boolean except, int steps, byte pass, boolean type)
     {
         //Spiral search, because I'm awesome :)
         //This is so the backpack tries to get placed near the death point first
@@ -329,7 +329,7 @@ public class Utils
                 for (; i <= X + steps; i++)
                 {
 
-                    ChunkCoordinates coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
+                    ChunkPos coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
                     if (coords != null)
                     {
                         return coords;
@@ -342,7 +342,7 @@ public class Utils
             {
                 for (; j >= Z - steps; j--)
                 {
-                    ChunkCoordinates coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
+                    ChunkPos coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
                     if (coords != null)
                     {
                         return coords;
@@ -360,7 +360,7 @@ public class Utils
             {
                 for (; i >= X - steps; i--)
                 {
-                    ChunkCoordinates coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
+                    ChunkPos coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
                     if (coords != null)
                     {
                         return coords;
@@ -373,7 +373,7 @@ public class Utils
             {
                 for (; j <= Z + steps; j++)
                 {
-                    ChunkCoordinates coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
+                    ChunkPos coords = type ? checkCoordsForPlayer(world, origX, origZ, X, Y, Z, except) : checkCoordsForBackpack(world, origX, origZ, X, Y, Z, except);
                     if (coords != null)
                     {
                         return coords;

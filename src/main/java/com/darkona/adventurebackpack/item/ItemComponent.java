@@ -5,20 +5,20 @@ import java.util.List;
 
 import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+//import net.minecraft.util.IIcon;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 /**
@@ -28,7 +28,7 @@ import net.minecraft.world.World;
  */
 public class ItemComponent extends ItemAB
 {
-    private HashMap<String, IIcon> componentIcons = new HashMap<String, IIcon>();
+    //    private HashMap<String, IIcon> componentIcons = new HashMap<String, IIcon>();
     private String[] names = {
             "sleepingBag",
             "backpackTank",
@@ -50,6 +50,8 @@ public class ItemComponent extends ItemAB
         this.setUnlocalizedName("backpackComponent");
     }
 
+    /**
+     * TODO: rendering
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
@@ -64,19 +66,21 @@ public class ItemComponent extends ItemAB
         itemIcon = iconRegister.registerIcon(super.getUnlocalizedName("sleepingBag").substring(this.getUnlocalizedName().indexOf(".") + 1));
     }
 
+
     @Override
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
         return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
     }
 
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int damage)
     {
         return componentIcons.get(names[damage - 1]);
-
     }
+    */
 
     @Override
     public String getUnlocalizedName(ItemStack stack)
@@ -160,7 +164,7 @@ public class ItemComponent extends ItemAB
         double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) f;
         double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) f + 1.62D - (double) player.yOffset;
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) f;
-        Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
+        Vec3d Vec3d = Vec3d.createVectorHelper(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
         float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
         float f5 = -MathHelper.cos(-f1 * 0.017453292F);
@@ -168,18 +172,18 @@ public class ItemComponent extends ItemAB
         float f7 = f4 * f5;
         float f8 = f3 * f5;
         double d3 = 5.0D;
-        Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-        MovingObjectPosition movingobjectposition = world.rayTraceBlocks(vec3, vec31, true);
+        Vec3d Vec3d1 = Vec3d.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        RayTraceResult movingobjectposition = world.rayTraceBlocks(Vec3d, Vec3d1, true);
 
         if (movingobjectposition == null)
         {
             return stack;
         } else
         {
-            Vec3 vec32 = player.getLook(f);
+            Vec3d Vec3d2 = player.getLook(f);
             boolean flag = false;
             float f9 = 1.0F;
-            List list = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand((double) f9, (double) f9, (double) f9));
+            List list = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.addCoord(Vec3d2.xCoord * d3, Vec3d2.yCoord * d3, Vec3d2.zCoord * d3).expand((double) f9, (double) f9, (double) f9));
             int i;
 
             for (i = 0; i < list.size(); ++i)
@@ -191,7 +195,7 @@ public class ItemComponent extends ItemAB
                     float f10 = entity.getCollisionBorderSize();
                     AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f10, (double) f10, (double) f10);
 
-                    if (axisalignedbb.isVecInside(vec3))
+                    if (axisalignedbb.isVecInside(Vec3d))
                     {
                         flag = true;
                     }
@@ -203,7 +207,7 @@ public class ItemComponent extends ItemAB
                 return stack;
             } else
             {
-                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                if (movingobjectposition.typeOfHit == RayTraceResult.MovingObjectType.BLOCK)
                 {
                     i = movingobjectposition.blockX;
                     int j = movingobjectposition.blockY;

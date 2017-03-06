@@ -13,7 +13,7 @@ public class BackpackMaterial extends Material
 
     public BackpackMaterial()
     {
-        super(MapColor.brownColor);
+        super(MapColor.BROWN);
     }
 
     /**
@@ -34,11 +34,11 @@ public class BackpackMaterial extends Material
     /**
      * Will prevent grass from growing on dirt underneath and kill any grass below it if it returns true
      */
-    @Override
-    public boolean getCanBlockGrass()
-    {
-        return false;
-    }
+    //@Override
+    //public boolean getCanBlockGrass()
+    //{
+    //    return false;
+    //}
 
     /**
      * Returns if this material is considered solid or not
@@ -130,11 +130,11 @@ public class BackpackMaterial extends Material
     /**
      * Returns true if blocks with this material can always be mined in adventure mode.
      */
-    @Override
-    public boolean isAdventureModeExempt()
-    {
-        return true;
-    }
+    //@Override
+    //public boolean isAdventureModeExempt()
+    //{
+    //    return true;
+    //}
 
     /**
      * This type of material can't be pushed, and pistons are blocked to move.
@@ -149,11 +149,11 @@ public class BackpackMaterial extends Material
      * Returns the mobility information of the material, 0 = free, 1 = can't push but can move over, 2 = total
      * immobility and stop pistons.
      */
-    @Override
-    public int getMaterialMobility()
-    {
-        return super.getMaterialMobility();
-    }
+    //@Override
+    //public int getMaterialMobility()
+    //{
+    //    return super.getMaterialMobility();
+    //}
 
     /**
      * Indicate if the material is opaque

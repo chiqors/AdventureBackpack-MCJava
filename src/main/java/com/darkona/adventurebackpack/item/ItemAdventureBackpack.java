@@ -21,8 +21,8 @@ import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,12 +32,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 /**
  * Created on 12/10/2014
@@ -205,7 +205,7 @@ public class ItemAdventureBackpack extends ItemAB implements IBackWearableItem
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-        MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, true);
+        RayTraceResult mop = getMovingObjectPositionFromPlayer(world, player, true);
         if (mop == null || mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY)
         {
             if (world.isRemote)
@@ -335,10 +335,10 @@ public class ItemAdventureBackpack extends ItemAB implements IBackWearableItem
         {
             if (Y + shiftY >= 1)
             {
-                ChunkCoordinates spawn = Utils.getNearestEmptyChunkCoordinatesSpiral(world, X, Z, X, Y + shiftY, Z, 6, true, 1, (byte) 0, false);
+                ChunkPos spawn = Utils.getNearestEmptyChunkCoordinatesSpiral(world, X, Z, X, Y + shiftY, Z, 6, true, 1, (byte) 0, false);
                 if (spawn != null)
                 {
-                    return placeBackpack(backpack, player, world, spawn.posX, spawn.posY, spawn.posZ, ForgeDirection.UP.ordinal(), false);
+                    return placeBackpack(backpack, player, world, spawn.posX, spawn.posY, spawn.posZ, EnumFacing.UP.ordinal(), false);
                 }
             }
         }

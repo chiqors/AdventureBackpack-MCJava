@@ -5,7 +5,7 @@ import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
 import com.darkona.adventurebackpack.init.ModFluids;
 import com.darkona.adventurebackpack.util.Resources;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -61,9 +61,12 @@ public class ItemJuiceBottle extends ItemAB
         return 28;
     }
 
+    /**
+     * TODO: rendering
     @Override
     public void registerIcons(IIconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon(Resources.getIconString("melonJuiceBottle"));
     }
+    */
 }

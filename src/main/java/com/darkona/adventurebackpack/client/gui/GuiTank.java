@@ -1,13 +1,13 @@
 package com.darkona.adventurebackpack.client.gui;
 
-import codechicken.lib.render.TextureUtils;
+//import codechicken.lib.render.TextureUtils;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.util.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.IIcon;
+//import net.minecraft.util.Icon;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import org.lwjgl.opengl.GL11;
@@ -103,6 +103,8 @@ public class GuiTank
      * @param gui
      * @param
      */
+    /**
+     * TODO: rendering code
     private void drawMethodOne(GuiWithTanks gui)
     {
         if(tank.getFluid() != null)
@@ -125,10 +127,12 @@ public class GuiTank
             }
         }
     }
+    */
 
     /**
+     * TODO: rendering code
      * @param
-     */
+     *
     private void drawMethodTwo()
     {
         if(tank.getFluid() != null)
@@ -154,10 +158,12 @@ public class GuiTank
             }
         }
     }
+    */
 
     /**
+     * TODO: rendering code
      * @param
-     */
+     *
     private void drawMethodThree()
     {
         if(tank.getFluid() != null)
@@ -192,6 +198,7 @@ public class GuiTank
             }
         }
     }
+    */
 
     /**
      * @param gui
@@ -222,7 +229,7 @@ public class GuiTank
      *             0.
      * @param srcH The height of the selection in the icon to draw from. Starts
      *             at 0.
-     */
+     * TODO: rendering code
     public static void drawFluidPixelFromIcon(int x, int y, IIcon icon, int w, int h, int srcX, int srcY, int srcW, int srcH, float zLevel)
     {
         double minU = icon.getMinU();
@@ -249,4 +256,5 @@ public class GuiTank
 
 
     }
+    */
 }

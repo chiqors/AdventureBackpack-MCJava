@@ -6,17 +6,17 @@ import com.darkona.adventurebackpack.CreativeTabAB;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.Utils;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.ChunkPos;
+//import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -27,7 +27,7 @@ import net.minecraft.world.World;
  */
 public class BlockCampFire extends BlockContainer
 {
-    private IIcon icon;
+   // private IIcon icon;
 
     public BlockCampFire()
     {
@@ -48,12 +48,16 @@ public class BlockCampFire extends BlockContainer
         this.func_149978_e();
     }
 
+    /**
+     * TODO: rendering code
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
         icon = iconRegister.registerIcon(ModInfo.MOD_ID + ":campFire");
     }
+     */
 
     @Override
     public String getUnlocalizedName()
@@ -184,11 +188,15 @@ public class BlockCampFire extends BlockContainer
         return super.getSelectedBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
     }
 
+    /**
+     * TODO: rendering code
     @Override
     public IIcon getIcon(IBlockAccess p_149673_1_, int p_149673_2_, int p_149673_3_, int p_149673_4_, int p_149673_5_)
     {
         return icon;
     }
+     */
+
 
     /**
      * Gets the block's texture. Args: side, meta
@@ -196,11 +204,14 @@ public class BlockCampFire extends BlockContainer
      * @param p_149691_1_
      * @param p_149691_2_
      */
+    /**
+     * TODO: rendering code
     @Override
     public IIcon getIcon(int p_149691_1_, int p_149691_2_)
     {
         return icon;
     }
+     */
 
     /**
      * Determines if this block is classified as a Bed, Allowing
@@ -221,11 +232,11 @@ public class BlockCampFire extends BlockContainer
     }
 
     @Override
-    public ChunkCoordinates getBedSpawnPosition(IBlockAccess world, int x, int y, int z, EntityPlayer player)
+    public ChunkPos getBedSpawnPosition(IBlockAccess world, int x, int y, int z, EntityPlayer player)
     {
         for (int i = y - 5; i <= y + 5; i++)
         {
-            ChunkCoordinates spawn = Utils.getNearestEmptyChunkCoordinatesSpiral(world, x, z, x, i, z, 8, true, 1, (byte) 0, true);
+            ChunkPos spawn = Utils.getNearestEmptyChunkCoordinatesSpiral(world, x, z, x, i, z, 8, true, 1, (byte) 0, true);
 
             if (spawn != null)
             {

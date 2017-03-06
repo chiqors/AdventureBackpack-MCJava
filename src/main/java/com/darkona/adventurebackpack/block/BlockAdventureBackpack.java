@@ -11,12 +11,12 @@ import com.darkona.adventurebackpack.reference.BackpackNames;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.Utils;
 
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.client.renderer.texture.IIconRegister;
+//import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -26,17 +26,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.AxisAlignedBB;
+//import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+//import net.minecraft.util.IIcon;
+//import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+//import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 /**
  * Created on 12/10/2014.
@@ -51,7 +52,7 @@ public class BlockAdventureBackpack extends BlockContainer
     {
         super(new BackpackMaterial());
         setHardness(1.0f);
-        setStepSound(soundTypeCloth);
+        //setStepSound(soundTypeCloth);
         setResistance(2000f);
     }
 
@@ -64,6 +65,7 @@ public class BlockAdventureBackpack extends BlockContainer
      * @param z
      * @param random
      */
+    /**
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random random)
@@ -87,6 +89,7 @@ public class BlockAdventureBackpack extends BlockContainer
             }
         }
     }
+    **/
 
     @Override
     public int getMobilityFlag()
@@ -161,7 +164,7 @@ public class BlockAdventureBackpack extends BlockContainer
     }
 
     @Override
-    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+    public int getFlammability(IBlockAccess world, int x, int y, int z, EnumFacing face)
     {
         return 0;
     }
@@ -216,7 +219,7 @@ public class BlockAdventureBackpack extends BlockContainer
     }
 
     @Override
-    public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+    public boolean isFlammable(IBlockAccess world, int x, int y, int z, EnumFacing face)
     {
         return false;
     }
@@ -233,6 +236,8 @@ public class BlockAdventureBackpack extends BlockContainer
 
     }
 
+    /**
+     * TODO: rendering code
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
@@ -243,6 +248,7 @@ public class BlockAdventureBackpack extends BlockContainer
         Icons.mushRoomStewStill = iconRegister.registerIcon(ModInfo.MOD_ID + ":fluid.mushroomStewStill");
         Icons.mushRoomStewFlowing = iconRegister.registerIcon(ModInfo.MOD_ID + ":fluid.mushroomStewFlowing");
     }
+    **/
 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z)
@@ -289,7 +295,7 @@ public class BlockAdventureBackpack extends BlockContainer
     }
 
     @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
+    public ItemStack getPickBlock(RayTraceResult target, World world, int x, int y, int z, EntityPlayer player)
     {
         ItemStack backpack = new ItemStack(ModItems.adventureBackpack, 1);
         BackpackNames.setBackpackColorNameFromDamage(backpack, BackpackNames.getBackpackDamageFromName(getAssociatedTileColorName(world, x, y, z)));
@@ -379,12 +385,15 @@ public class BlockAdventureBackpack extends BlockContainer
         return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
 
-    @Override
+    /**
+     * TODO: more rendering dode
+     Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2)
     {
         return Blocks.wool.getIcon(par1, par2);
     }
+    */
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
@@ -393,12 +402,16 @@ public class BlockAdventureBackpack extends BlockContainer
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
+    /**
+     * TODO: do i need this
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 start, Vec3 end)
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3d start, Vec3d end)
     {
         setBlockBoundsBasedOnState(world, x, y, z);
         return super.collisionRayTrace(world, x, y, z, start, end);
     }
+
+    */
 
     @Override
     public boolean canReplace(World p_149705_1_, int p_149705_2_, int p_149705_3_, int p_149705_4_, int p_149705_5_, ItemStack p_149705_6_)

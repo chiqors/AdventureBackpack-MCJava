@@ -10,24 +10,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.common.IExtendedEntityProperties;
+//import net.minecraftforge.common.IExtendedEntityProperties;
 
 /**
  * Created on 24/10/2014
  *
  * @author Darkona
+ * TODO: change for capabilityes system
  */
 @SuppressWarnings("unused")
-public class BackpackProperty implements IExtendedEntityProperties
+public class BackpackProperty //implements IExtendedEntityProperties
 {
 
     public static final String PROPERTY_NAME = "abp.property";
     protected EntityPlayer player = null;
     private ItemStack wearable = null;
-    private ChunkCoordinates campFire = null;
+    private ChunkPos campFire = null;
     private NBTTagCompound wearableData = new NBTTagCompound();
     private boolean forceCampFire = false;
     private int dimension = 0;
@@ -150,7 +151,7 @@ public class BackpackProperty implements IExtendedEntityProperties
         return wearable != null ? wearable : null;
     }
 
-    public void setCampFire(ChunkCoordinates cf)
+    public void setCampFire(ChunkPos cf)
     {
         campFire = cf;
     }
@@ -160,7 +161,7 @@ public class BackpackProperty implements IExtendedEntityProperties
         return wearable != null;
     }
 
-    public ChunkCoordinates getCampFire()
+    public ChunkPos getCampFire()
     {
         return campFire;
     }

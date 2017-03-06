@@ -3,12 +3,12 @@ package com.darkona.adventurebackpack.network;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  * Created on 08/01/2015
@@ -45,13 +45,13 @@ public class EquipUnequipBackWearablePacket implements IMessageHandler<EquipUneq
                 {
                     if (Wearing.isWearingBackpack(player))
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.backpack"));
+                        player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.backpack"));
                     } else if (Wearing.isWearingCopter(player))
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.copterpack"));
+                        player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.copterpack"));
                     } else if (Wearing.isWearingJetpack(player))
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.jetpack"));
+                        player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.jetpack"));
                     }
                 }
             }

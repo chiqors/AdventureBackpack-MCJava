@@ -20,9 +20,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -462,13 +462,13 @@ public class TileAdventureBackpack extends TileEntity implements IInventoryAdven
     {
         NBTTagCompound compound = new NBTTagCompound();
         writeToNBT(compound);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 0, compound);
+        return new SPacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 0, compound);
     }
 
     //RECEIV SYNC PACKET - This is necessary for the TileEntity to load the nbt as soon as it is loaded and be rendered
     //properly when the custom renderer reads it
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         super.onDataPacket(net, pkt);
         readFromNBT(pkt.func_148857_g());
@@ -571,13 +571,13 @@ public class TileAdventureBackpack extends TileEntity implements IInventoryAdven
             {
                 if (Wearing.isWearingBackpack(player))
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.backpack"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.backpack"));
                 } else if (Wearing.isWearingCopter(player))
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.copterpack"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.copterpack"));
                 } else if (Wearing.isWearingJetpack(player))
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.equipped.jetpack"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.equipped.jetpack"));
                 }
             }
             if (!player.inventory.addItemStackToInventory(stacky))

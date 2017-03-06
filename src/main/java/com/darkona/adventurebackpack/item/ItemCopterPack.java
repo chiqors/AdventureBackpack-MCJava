@@ -14,8 +14,8 @@ import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -24,8 +24,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -154,7 +154,7 @@ public class ItemCopterPack extends ItemAB implements IBackWearableItem
                 inv.dirtyStatus();
                 if (!world.isRemote)
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.copterpack.cantwater"));
+                    player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.copterpack.cantwater"));
                 }
                 return;
             }
@@ -167,7 +167,7 @@ public class ItemCopterPack extends ItemAB implements IBackWearableItem
                     inv.dirtyStatus();
                     if (!world.isRemote)
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.copterpack.off"));
+                        player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.copterpack.off"));
                     }
                     return;
                     //TODO play "backpackOff" sound
@@ -179,7 +179,7 @@ public class ItemCopterPack extends ItemAB implements IBackWearableItem
                     inv.dirtyStatus();
                     if (!world.isRemote)
                     {
-                        player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.copterpack.outoffuel"));
+                        player.addChatComponentMessage(new TextComponentTranslations("adventurebackpack:messages.copterpack.outoffuel"));
                     }
                     return;
                     //TODO play "outofFuel" sound

@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
+//import net.minecraftforge.client.IItemRenderer;
 
 
 /**
@@ -18,7 +18,7 @@ import net.minecraftforge.client.IItemRenderer;
  */
 
 
-public class RendererItemAdventureHat implements IItemRenderer
+public class RendererItemAdventureHat //implements IItemRenderer
 {
 
     private final ModelAdventureHat model;
@@ -27,7 +27,8 @@ public class RendererItemAdventureHat implements IItemRenderer
     {
         model = ModelAdventureHat.instance;
     }
-
+    /**
+     * TODO: rendering
     @Override
     public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type)
     {
@@ -177,5 +178,6 @@ public class RendererItemAdventureHat implements IItemRenderer
                 break;
         }
     }
+    **/
 
 }

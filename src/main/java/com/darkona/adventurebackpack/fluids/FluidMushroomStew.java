@@ -1,7 +1,7 @@
 package com.darkona.adventurebackpack.fluids;
 
 import com.darkona.adventurebackpack.client.Icons;
-import net.minecraft.util.IIcon;
+//import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -21,6 +21,8 @@ public class FluidMushroomStew extends Fluid
         setLuminosity(0);
     }
 
+    /**
+     * TODO: rendering
     @Override
     public IIcon getStillIcon()
     {
@@ -38,6 +40,7 @@ public class FluidMushroomStew extends Fluid
     {
         return Icons.mushRoomStewFlowing;
     }
+    **/
 
     @Override
     public int getColor(FluidStack stack)

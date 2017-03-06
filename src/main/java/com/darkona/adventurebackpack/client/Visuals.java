@@ -3,10 +3,10 @@ package com.darkona.adventurebackpack.client;
 import com.darkona.adventurebackpack.entity.fx.SteamFX;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
+// /import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 /**
@@ -52,22 +52,22 @@ public class Visuals
 
     public static void CopterParticles(EntityPlayer player, World world)
     {
-        Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
-        Vec3 victor = Vec3.createVectorHelper(-0.25D, -0.19D, -0.40D);
+        Vec3d playerPosition = Vec3d.createVectorHelper(player.posX, player.posY, player.posZ);
+        Vec3d victor = Vec3d.createVectorHelper(-0.25D, -0.19D, -0.40D);
         victor.rotateAroundY(-player.renderYawOffset * 3.141593F / 180.0F);
-        Vec3 finalPosition = playerPosition.addVector(victor.xCoord, victor.yCoord, victor.zCoord);
+        Vec3d finalPosition = playerPosition.addVector(victor.xCoord, victor.yCoord, victor.zCoord);
         world.spawnParticle("smoke", finalPosition.xCoord, finalPosition.yCoord, finalPosition.zCoord, 0, -0.4, 0);
     }
 
     public static void JetpackParticles(EntityPlayer player, World world)
     {
-        Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
-        Vec3 victor = Vec3.createVectorHelper(-0.5D, -0.5D, -0.5D);
-        Vec3 victoria = Vec3.createVectorHelper(0.5D, -0.5D, -0.5D);
+        Vec3d playerPosition = Vec3d.createVectorHelper(player.posX, player.posY, player.posZ);
+        Vec3d victor = Vec3d.createVectorHelper(-0.5D, -0.5D, -0.5D);
+        Vec3d victoria = Vec3d.createVectorHelper(0.5D, -0.5D, -0.5D);
         victor.rotateAroundY(-player.renderYawOffset * 3.141593F / 180.0F);
         victoria.rotateAroundY(-player.renderYawOffset * 3.141593F / 180.0F);
-        Vec3 leftPosition = victor.addVector(playerPosition.xCoord, playerPosition.yCoord, playerPosition.zCoord);
-        Vec3 rightPosition = victoria.addVector(playerPosition.xCoord, playerPosition.yCoord, playerPosition.zCoord);
+        Vec3d leftPosition = victor.addVector(playerPosition.xCoord, playerPosition.yCoord, playerPosition.zCoord);
+        Vec3d rightPosition = victoria.addVector(playerPosition.xCoord, playerPosition.yCoord, playerPosition.zCoord);
         for (int i = 0; i < 4; i++)
         {
             spawnParticle("steam", leftPosition.xCoord, leftPosition.yCoord, leftPosition.zCoord, 0.04 * world.rand.nextGaussian(), -0.8, 0.04 * world.rand.nextGaussian());
@@ -78,6 +78,8 @@ public class Visuals
     private static Minecraft mc = Minecraft.getMinecraft();
     private static World theWorld = mc.theWorld;
 
+    /**
+     * TODO: rendering
     public static EntityFX spawnParticle(String particleName, double x, double y, double z, double motionX, double motionY, double motionZ)
     {
         if (mc != null && mc.renderViewEntity != null && mc.effectRenderer != null)
@@ -106,17 +108,6 @@ public class Visuals
                 if (particleName.equals("steam"))
                 {
                     entityFX = new SteamFX(theWorld, x, y, z, (float) motionX, (float) motionY, (float) motionZ);
-                    /*
-                    try
-                    {
-                        entityFX = (EntityFX) Class.forName("mods.railcraft.client.particles.EntitySteamFX")
-                                .getConstructor(World.class,int.class,int.class,int.class,float.class,float.class,float.class)
-                                .newInstance(theWorld, x, y, z, (float) motionX, (float) motionY, (float) motionZ);
-                    }catch(Exception ex)
-                    {
-                        entityFX = new SteamFX(theWorld, x, y, z, (float) motionX, (float) motionY, (float) motionZ);
-                    }
-                    */
                 }
                 mc.effectRenderer.addEffect(entityFX);
                 return entityFX;
@@ -124,4 +115,5 @@ public class Visuals
         }
         return null;
     }
+    */
 }

@@ -13,7 +13,7 @@ import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.passive.EntityHorse;
@@ -21,13 +21,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemAppleGold;
 import net.minecraft.item.ItemPotion;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+//import net.minecraft.util.ChatComponentText;
+//import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+//import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 
 /**
@@ -40,6 +40,7 @@ public class GeneralEventHandler
     /**
      * @param event
      */
+    /**
     @SubscribeEvent
     public void eatGoldenApple(PlayerUseItemEvent.Finish event)
     {
@@ -79,6 +80,7 @@ public class GeneralEventHandler
             }
         }
     }
+    */
 
     @SubscribeEvent
     public void detectBow(ArrowNockEvent event)

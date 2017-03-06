@@ -14,20 +14,20 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.LogHelper;
 import com.darkona.adventurebackpack.util.Wearing;
 
-import codechicken.lib.render.TextureUtils;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+//import codechicken.lib.render.TextureUtils;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+//import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
+// /import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fluids.FluidStack;
@@ -43,7 +43,7 @@ public class GuiOverlay extends Gui
     private Minecraft mc;
     private int screenWidth;
     private int screenHeight;
-    protected static RenderItem itemRender = new RenderItem();
+//    protected static RenderItem itemRender = new RenderItem();
     protected FontRenderer fontRendererObj;
     ScaledResolution resolution;
     @SuppressWarnings("static-access")
@@ -53,8 +53,8 @@ public class GuiOverlay extends Gui
 
         // We need this to invoke the render engine.
         this.mc = mc;
-        this.itemRender.renderWithColor = false;
-        this.fontRendererObj = mc.fontRenderer;
+//        this.itemRender.renderWithColor = false;
+//        this.fontRendererObj = mc.fontRenderer;
     }
 
     private static final int BUFF_ICON_SIZE = 18;
@@ -63,11 +63,13 @@ public class GuiOverlay extends Gui
     private static final int BUFF_ICON_BASE_V_OFFSET = 198;
     private static final int BUFF_ICONS_PER_ROW = 8;
 
+    /**
+     * TODO: rendering code
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onRenderExperienceBar(RenderGameOverlayEvent.Post event)
     {
-        if(event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+        if(event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
         {
             return;
         }
@@ -243,4 +245,5 @@ public class GuiOverlay extends Gui
         this.zLevel = 0.0F;
         itemRender.zLevel = 0.0F;
     }
+    **/
 }

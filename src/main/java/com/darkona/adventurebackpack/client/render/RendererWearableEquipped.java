@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL12;
  *
  * @author Darkona
  */
-public class RendererWearableEquipped extends RendererLivingEntity
+public class RendererWearableEquipped extends RenderLiving
 {
 
     public ResourceLocation texture;

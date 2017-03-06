@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -31,7 +31,7 @@ public class EntityFriendlySpider extends EntityCreature
     @SuppressWarnings("unused")
 	private boolean tamed = false;
     @SuppressWarnings("unused")
-	private final EntityAIControlledByPlayer aiControlledByPlayer;
+//	private final EntityAIControlledByPlayer aiControlledByPlayer;
 
     @Override
     protected void entityInit() {

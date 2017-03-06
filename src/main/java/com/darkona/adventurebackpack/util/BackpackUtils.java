@@ -9,7 +9,7 @@ import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -95,7 +95,7 @@ public class BackpackUtils
                 BackpackProperty.sync(player);
             } else
             {
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.already.impossibru"));
+                player.addChatComponentMessage(new TextComponentTranslation("adventurebackpack:messages.already.impossibru"));
             }
         }
     }

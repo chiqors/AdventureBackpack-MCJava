@@ -1,7 +1,7 @@
 package com.darkona.adventurebackpack.fluids;
 
 import com.darkona.adventurebackpack.client.Icons;
-import net.minecraft.util.IIcon;
+//import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,6 +17,10 @@ public class FluidMelonJuice extends Fluid
         super("melonJuice");
         setUnlocalizedName("melonJuice");
     }
+
+
+    /**
+     * TODO: rendering
 
     @Override
     public IIcon getStillIcon()
@@ -35,6 +39,7 @@ public class FluidMelonJuice extends Fluid
     {
         return Icons.melonJuiceFlowing;
     }
+    **/
 
     @Override
     public int getColor(FluidStack stack)
