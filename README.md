@@ -14,6 +14,5 @@ My only request is to provide a link to this github if not its fine by me<br>
 * Better performance!
 * Little more adventure backpacks to you to enjoy
 * Major bugfixes 
-* 
 <br>
 More is coming soon!
